@@ -36,3 +36,4 @@ C:\Users\usama\source\repos\PersonalFinanceTracker\PersonalFinanceTracker\obj\De
 C:\Users\usama\source\repos\PersonalFinanceTracker\PersonalFinanceTracker\obj\Debug\net8.0\PersonalFinanceTracker.pdb
 C:\Users\usama\source\repos\PersonalFinanceTracker\PersonalFinanceTracker\obj\Debug\net8.0\PersonalFinanceTracker.genruntimeconfig.cache
 C:\Users\usama\source\repos\PersonalFinanceTracker\PersonalFinanceTracker\obj\Debug\net8.0\ref\PersonalFinanceTracker.dll
+C:\Users\usama\source\repos\PersonalFinanceTracker\PersonalFinanceTracker\obj\Debug\net8.0\PersonalFinanceTracker.sourcelink.json
