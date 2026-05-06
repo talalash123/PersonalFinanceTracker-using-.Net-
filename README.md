@@ -75,11 +75,11 @@ http://localhost:8080
 ---
 
 ## Screenshots
-- Dashboard: images/dashboard.jpeg
-- Analysis: images/analysis.jpeg
-- Add: images/Add.jpeg
-- History: images/history.jpeg
-- Setting: images/Setting.jpeg
+- Dashboard: Images/dashboard.jpeg
+- Analysis: Images/analysis.jpeg
+- Add: Images/Add.jpeg
+- History: Images/history.jpeg
+- Setting: Images/Setting.jpeg
 
 ---
 
