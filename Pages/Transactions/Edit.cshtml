@@ -1,0 +1,170 @@
+﻿@page "{id}"
+@model PersonalFinanceTracker.Pages.Transactions.EditModel
+@{
+    ViewData["Title"] = "Edit Transaction";
+}
+
+<div class="container-fluid py-5 edit-record-canvas">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card border-0 shadow-lg rounded-4 glass-edit-card">
+                <div class="card-body p-5">
+
+                    <!-- Header Section -->
+                    <div class="text-center mb-5">
+                        <div class="icon-badge-edit mb-3">
+                            <i class="fas fa-pen azure-text"></i>
+                        </div>
+                        <h3 class="fw-bold navy-text">Update <span class="azure-text">Entry</span></h3>
+                        <p class="text-muted small">Modify the details of your existing transaction.</p>
+                    </div>
+
+                    <form method="post">
+                        @* Essential Hidden Fields *@
+                        <input type="hidden" asp-for="Transaction.Id" />
+                        <input type="hidden" asp-for="Transaction.Date" />
+                        <input type="hidden" asp-for="Transaction.IsExpense" />
+
+                        <div class="row g-4">
+                            <!-- Description -->
+                            <div class="col-12">
+                                <label class="form-label label-style">Description</label>
+                                <input asp-for="Transaction.Description" class="form-control custom-input" placeholder="Update description..." required />
+                            </div>
+
+                            <!-- Amount -->
+                            <div class="col-md-6">
+                                <label class="form-label label-style">Amount (Rs.)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-azure-soft border-0 navy-text fw-bold">Rs.</span>
+                                    <input asp-for="Transaction.Amount" type="number" step="0.01" class="form-control custom-input border-start-0" required />
+                                </div>
+                            </div>
+
+                            <!-- Category Selection -->
+                            <div class="col-md-6">
+                                <label class="form-label label-style">Category</label>
+                                <select asp-for="Transaction.Category" class="form-select custom-input" required>
+                                    <option value="Food">Food</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Salary">Salary</option>
+                                    <option value="Bills">Bills</option>
+                                    <option value="Shopping">Shopping</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Status Indicator (Read-only info) -->
+                        <div class="mt-4 p-3 rounded-3 @(Model.Transaction.IsExpense ? "bg-light-danger" : "bg-light-success") d-flex align-items-center">
+                            <i class="fas @(Model.Transaction.IsExpense ? "fa-arrow-up text-danger" : "fa-arrow-down text-success") me-2"></i>
+                            <span class="small fw-bold @(Model.Transaction.IsExpense ? "text-danger" : "text-success")">
+                                This is currently marked as an @(Model.Transaction.IsExpense ? "Expense" : "Income")
+                            </span>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-5 d-flex gap-2">
+                            <button type="submit" class="btn btn-navy flex-grow-1 py-3 rounded-pill fw-bold shadow-sm">
+                                <i class="fas fa-check-circle me-2"></i> Update Changes
+                            </button>
+                            <a asp-page="/Transactions/History" class="btn btn-light-azure px-4 py-3 rounded-pill border fw-bold text-muted">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --navy-deep: #0a192f;
+        --azure-primary: #007bff;
+        --azure-soft: #e7f1ff;
+        --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    }
+
+    .edit-record-canvas {
+        background: var(--bg-gradient);
+        min-height: 100vh;
+    }
+
+    .glass-edit-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navy-text {
+        color: var(--navy-deep);
+    }
+
+    .azure-text {
+        color: var(--azure-primary);
+    }
+
+    .label-style {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #6c757d;
+        margin-bottom: 8px;
+    }
+
+    .custom-input {
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 12px 15px;
+        transition: 0.3s;
+    }
+
+        .custom-input:focus {
+            border-color: var(--azure-primary);
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+
+    .icon-badge-edit {
+        width: 60px;
+        height: 60px;
+        background: var(--azure-soft);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-size: 1.5rem;
+    }
+
+    .btn-navy {
+        background-color: var(--navy-deep);
+        color: white;
+        transition: 0.3s ease;
+    }
+
+        .btn-navy:hover {
+            background-color: #112240;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .bg-azure-soft {
+        background-color: var(--azure-soft);
+    }
+
+    .btn-light-azure {
+        background-color: #fff;
+        color: var(--navy-deep);
+    }
+
+    .bg-light-danger {
+        background-color: #fff5f5;
+    }
+
+    .bg-light-success {
+        background-color: #f0fff4;
+    }
+</style>

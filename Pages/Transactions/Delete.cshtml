@@ -1,0 +1,24 @@
+﻿@page "{id}"
+@model PersonalFinanceTracker.Pages.Transactions.DeleteModel
+@{
+    ViewData["Title"] = "Confirm Delete";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger shadow mx-auto" style="max-width: 400px;">
+        <div class="card-body text-center p-4">
+            <h4 class="text-danger mb-3">Delete Transaction?</h4>
+            <p>Kya aap waqai <strong>@Model.Transaction.Description</strong> ko delete karna chahte hain?</p>
+
+            <form method="post">
+                <!-- Hidden field ID ko backend bhejne ke liye zaroori hai -->
+                <input type="hidden" asp-for="Transaction.Id" />
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a asp-page="./History" class="btn btn-secondary">No, Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

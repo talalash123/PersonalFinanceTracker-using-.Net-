@@ -1,0 +1,182 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid py-4 dashboard-canvas">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 navy-text">Finance <span class="azure-text">Insights</span></h2>
+            <p class="text-muted small">Live analytics from your MongoDB storage.</p>
+        </div>
+        <a asp-page="/Transactions/Add" class="btn btn-navy rounded-pill px-4 shadow">
+            <i class="fas fa-plus me-2"></i> Add Record
+        </a>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="glass-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="icon-circle bg-azure-light text-primary">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <span class="label-text">Total Income</span>
+                </div>
+                <h2 class="amount-text">Rs. @Model.TotalIncome.ToString("N0")</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="icon-circle bg-danger-light text-danger">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <span class="label-text">Total Expenses</span>
+                </div>
+                <h2 class="amount-text">Rs. @Model.TotalExpense.ToString("N0")</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="premium-navy-card p-4 border-0 shadow h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="icon-circle bg-white-20 text-white">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <span class="label-text text-white-50">Current Balance</span>
+                </div>
+                <h2 class="amount-text text-white">Rs. @Model.NetBalance.ToString("N0")</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-header bg-white p-4 border-0">
+            <h5 class="fw-bold mb-0 navy-text">Recent Activity</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-azure-soft">
+                    <tr>
+                        <th class="ps-4 py-3 azure-text small">DESCRIPTION</th>
+                        <th class="py-3 azure-text small">CATEGORY</th>
+                        <th class="py-3 azure-text small">DATE</th>
+                        <th class="text-end pe-4 py-3 azure-text small">AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.RecentTransactions)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold text-dark">@item.Description</td>
+                            <td><span class="badge rounded-pill bg-azure-light azure-text px-3">@item.Category</span></td>
+                            <td class="text-muted small">@item.Date.ToString("dd MMM yyyy")</td>
+                            <td class="text-end pe-4 fw-bold @(item.IsExpense ? "text-danger" : "text-success")">
+                                @(item.IsExpense ? "-" : "+") Rs. @item.Amount.ToString("N0")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --navy-deep: #0a192f;
+        --azure-primary: #007bff;
+        --azure-light: #e7f1ff;
+        --bg-light-blue: #f0f4f8;
+    }
+
+    .dashboard-canvas {
+        background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+        min-height: 100vh;
+    }
+
+    .navy-text {
+        color: var(--navy-deep);
+    }
+
+    .azure-text {
+        color: var(--azure-primary);
+    }
+
+    .btn-navy {
+        background-color: var(--navy-deep);
+        color: white;
+        transition: 0.3s ease;
+    }
+
+        .btn-navy:hover {
+            background-color: #112240;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 24px;
+        transition: 0.3s;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+        }
+
+    .premium-navy-card {
+        background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+        border-radius: 24px;
+    }
+
+    .icon-circle {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    .bg-azure-light {
+        background-color: var(--azure-light);
+    }
+
+    .bg-danger-light {
+        background-color: #fff0f0;
+    }
+
+    .bg-azure-soft {
+        background-color: #f8fbff;
+    }
+
+    .bg-white-20 {
+        background: rgba(255,255,255,0.15);
+    }
+
+    .amount-text {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .label-text {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .rounded-4 {
+        border-radius: 1.5rem !important;
+    }
+</style>

@@ -1,0 +1,142 @@
+﻿@page
+@model PersonalFinanceTracker.Pages.Budgets.ProgressModel
+@{
+    ViewData["Title"] = "Spending Analysis";
+}
+
+<div class="container-fluid py-4 progress-canvas">
+    <!-- Header Section -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 glass-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0 navy-text">Spending <span class="azure-text">Analysis</span></h3>
+                <p class="text-muted small">Visual breakdown of your category-wise expenses.</p>
+            </div>
+
+            <!-- Styled Filter Buttons -->
+            <div class="btn-group shadow-sm rounded-pill overflow-hidden custom-filter-group">
+                <a asp-page="./Progress" asp-route-filter="3days" class="btn btn-sm @(Model.CurrentFilter == "3days" ? "btn-navy" : "btn-light-azure")">3 Days</a>
+                <a asp-page="./Progress" asp-route-filter="7days" class="btn btn-sm @(Model.CurrentFilter == "7days" ? "btn-navy" : "btn-light-azure")">7 Days</a>
+                <a asp-page="./Progress" asp-route-filter="monthly" class="btn btn-sm @(Model.CurrentFilter == "monthly" ? "btn-navy" : "btn-light-azure")">Monthly</a>
+                <a asp-page="./Progress" asp-route-filter="yearly" class="btn btn-sm @(Model.CurrentFilter == "yearly" ? "btn-navy" : "btn-light-azure")">Yearly</a>
+            </div>
+        </div>
+
+        <!-- Total Stats Highlight -->
+        <div class="text-center py-4 mb-2 rounded-4 bg-navy-gradient text-white shadow-sm">
+            <p class="text-white-50 mb-1 fw-bold text-uppercase small" style="letter-spacing: 2px;">Total Spent (@Model.CurrentFilter)</p>
+            <h1 class="fw-bold display-5 mb-0">Rs. @Model.TotalSpent.ToString("N0")</h1>
+        </div>
+    </div>
+
+    <!-- Category Progress Bars -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 glass-panel">
+        <h5 class="fw-bold mb-4 navy-text"><i class="fas fa-stream me-2 azure-text"></i>Category Breakdown</h5>
+
+        <div class="spending-list">
+            @if (Model.SpendingList.Any())
+            {
+                foreach (var item in Model.SpendingList)
+                {
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-end mb-2">
+                            <div>
+                                <span class="fw-bold navy-text">@item.CategoryName</span>
+                                <span class="badge bg-azure-soft azure-text ms-2">@item.Percentage.ToString("0.0")%</span>
+                            </div>
+                            <span class="fw-bold azure-text">Rs. @item.Amount.ToString("N0")</span>
+                        </div>
+                        <div class="progress rounded-pill shadow-inner" style="height: 12px; background-color: #e9ecef;">
+                            <div class="progress-bar custom-azure-bar"
+                                 role="progressbar"
+                                 style="width: @item.Percentage.ToString("0")%;"
+                                 aria-valuenow="@item.Percentage"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-filter fa-3x text-muted mb-3 opacity-25"></i>
+                    <p class="text-muted">No data found for the selected period.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --navy-deep: #0a192f;
+        --azure-primary: #007bff;
+        --azure-soft: #e7f1ff;
+        --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    }
+
+    .progress-canvas {
+        background: var(--bg-gradient);
+        min-height: 100vh;
+    }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navy-text {
+        color: var(--navy-deep);
+    }
+
+    .azure-text {
+        color: var(--azure-primary);
+    }
+
+    /* Custom Filter Styling */
+    .custom-filter-group {
+        border: 1px solid var(--azure-soft);
+    }
+
+    .btn-navy {
+        background-color: var(--navy-deep);
+        color: white;
+        border: none;
+    }
+
+    .btn-light-azure {
+        background-color: white;
+        color: var(--navy-deep);
+        border: none;
+    }
+
+        .btn-light-azure:hover {
+            background-color: var(--azure-soft);
+        }
+
+    .bg-navy-gradient {
+        background: linear-gradient(135deg, #0a192f 0%, #0056b3 100%);
+    }
+
+    .bg-azure-soft {
+        background-color: var(--azure-soft);
+    }
+
+    /* Progress Bar Styling */
+    .custom-azure-bar {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .rounded-4 {
+        border-radius: 1.5rem !important;
+    }
+</style>
