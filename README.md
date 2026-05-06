@@ -75,11 +75,23 @@ http://localhost:8080
 ---
 
 ## Screenshots
-- Dashboard: Images/dashboard.jpeg
-- Analysis: Images/analysis.jpeg
-- Add: Images/Add.jpeg
-- History: Images/history.jpeg
-- Setting: Images/Setting.jpeg
+
+Aap yahan project ke mukammal interface ka overview dekh sakte hain:
+
+### Dashboard Overview
+![Dashboard](Images/dashboard.jpeg)
+
+### Spending Analysis
+![Analysis](Images/analysis.jpeg)
+
+### Add Transaction
+![Add](Images/Add.jpeg)
+
+### Transaction History
+![History](Images/history.jpeg)
+
+### User Settings
+![Setting](Images/Setting.jpeg)
 
 ---
 
