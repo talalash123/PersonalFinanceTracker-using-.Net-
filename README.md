@@ -79,16 +79,16 @@ http://localhost:8080
 Aap yahan project ke mukammal interface ka overview dekh sakte hain:
 
 ### Dashboard Overview
-![Dashboard](Images/dashboard.jpeg)
+![Dashboard](Images/Dashboard.jpeg)
 
 ### Spending Analysis
-![Analysis](Images/analysis.jpeg)
+![Analysis](Images/Analysis.jpeg)
 
 ### Add Transaction
 ![Add](Images/Add.jpeg)
 
 ### Transaction History
-![History](Images/history.jpeg)
+![History](Images/History.jpeg)
 
 ### User Settings
 ![Setting](Images/Setting.jpeg)
